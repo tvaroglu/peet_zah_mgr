@@ -12,10 +12,12 @@ class PizzasController < ApplicationController
 
   def create
     @pizza = Pizza.new(pizza_params)
+    @toppings = Topping.all
+
     if @pizza.save
       redirect_to pizzas_path, notice: "Pizza successfully created!"
     else
-      @toppings = Topping.all
+      flash.now[:alert] = "Failed to create pizza."
       render :new, status: :unprocessable_entity
     end
   end
@@ -25,23 +27,27 @@ class PizzasController < ApplicationController
   end
 
   def update
+    @toppings = Topping.all
+
     if @pizza.update(pizza_params)
       redirect_to pizzas_path, notice: "Pizza successfully updated!"
     else
-      @toppings = Topping.all
+      flash.now[:alert] = "Could not update pizza."
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @pizza.destroy
-    redirect_to pizzas_path, notice: "Pizza successfully deleted!"
+    redirect_to pizzas_path, notice: "Pizza successfully deleted!", status: :see_other
   end
 
   private
 
   def set_pizza
     @pizza = Pizza.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to pizzas_path, alert: "Pizza not found or already deleted."
   end
 
   def pizza_params
