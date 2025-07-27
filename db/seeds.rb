@@ -15,14 +15,22 @@ User.find_or_create_by!(username: "Seed Chef") do |u|
   u.role = User::ROLE_CHEF
 end
 
+mushroom = Topping.create!(name: "Mushroom")
+onion = Topping.create!(name: "Onion")
 cheese = Topping.create!(name: "Cheese")
 pepperoni = Topping.create!(name: "Pepperoni")
 
-marg = Pizza.create!(name: "Margherita", description: "Classic cheese pizza")
-PizzaTopping.create!(pizza: marg, topping: cheese)
+# Associate toppings during pizza creation:
+marg = Pizza.create!(
+  name: "Margherita",
+  description: "Classic cheese pizza",
+  toppings: [ cheese ]
+)
 
-pep = Pizza.create!(name: "Pepperoni", description: "Cheese with spicy pepperoni")
-PizzaTopping.create!(pizza: pep, topping: cheese)
-PizzaTopping.create!(pizza: pep, topping: pepperoni)
+pep = Pizza.create!(
+  name: "Pepperoni",
+  description: "Cheese with spicy pepperoni",
+  toppings: [ cheese, pepperoni ]
+)
 
 puts "DB seed complete: #{User.count} users, #{Pizza.count} pizzas, and #{Topping.count} toppings."
