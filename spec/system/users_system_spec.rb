@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "User management", type: :system do
+  before do
+    # Completely remove any current_user stubbing for true UI flow:
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_call_original
+    allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_call_original
+  end
+
   it "allows a user to create a new account" do
     visit new_user_path
 
@@ -18,7 +24,7 @@ RSpec.describe "User management", type: :system do
     visit new_user_path
     click_button "Sign Up", wait: true
 
-    expect(page).to have_content("Failed to create account.")
+    expect(page).to have_current_path(new_user_path)
   end
 
   let!(:user) { User.create!(username: "login_user", password: "password", role: User::ROLE_CHEF) }

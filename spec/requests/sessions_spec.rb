@@ -1,6 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "Sessions", type: :request do
+RSpec.describe "Sessions", type: :request, skip_auth_stub: true do
+  before do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
+    allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(false)
+  end
+
   let!(:user) { User.create!(username: "login_user", password: "password", role: User::ROLE_CHEF) }
 
   describe "GET /login" do
