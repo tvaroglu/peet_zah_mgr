@@ -55,6 +55,8 @@ group :development, :test do
 
   gem "rspec-rails", "~> 5.0"
   gem "capybara", "~> 3.40"
+  gem "selenium-webdriver"
+  gem "webdrivers"
   gem "pry"
   gem "pry-rails", "~> 0.3.9"
   gem "pry-byebug", "~> 3.9"
