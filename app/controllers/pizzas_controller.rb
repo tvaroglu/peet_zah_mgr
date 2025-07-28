@@ -1,4 +1,5 @@
 class PizzasController < ApplicationController
+  before_action :require_login
   before_action :set_pizza, only: %i[ edit update destroy ]
 
   def index

@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  # TODO: Implement user role-based ACL
   has_secure_password
 
   # Role constants:

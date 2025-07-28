@@ -5,12 +5,12 @@ Pizza.destroy_all
 Topping.destroy_all
 PizzaTopping.destroy_all
 
-User.find_or_create_by!(username: "Seed Manager") do |u|
+User.find_or_create_by!(username: "manager") do |u|
   u.password = seed_pwd
   u.role = User::ROLE_MANAGER
 end
 
-User.find_or_create_by!(username: "Seed Chef") do |u|
+User.find_or_create_by!(username: "chef") do |u|
   u.password = seed_pwd
   u.role = User::ROLE_CHEF
 end

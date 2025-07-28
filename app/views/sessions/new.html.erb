@@ -1,0 +1,27 @@
+<h1 class="text-2xl font-bold mb-4">Login to Peet Zah Mgr 🍕👨‍🍳</h1>
+
+<%= form_with url: login_path, local: true do |f| %>
+  <% if flash[:alert] %>
+    <div class="bg-red-100 text-red-600 p-3 rounded mb-4">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <%= label_tag :username, "Username", class: "block font-semibold mb-1" %>
+    <%= text_field_tag :username, nil, class: "border rounded w-full p-2" %>
+  </div>
+
+  <div class="mb-4">
+    <%= label_tag :password, "Password", class: "block font-semibold mb-1" %>
+    <%= password_field_tag :password, nil, class: "border rounded w-full p-2" %>
+  </div>
+
+  <div class="flex space-x-3 mt-4">
+    <%= submit_tag "Login",
+          class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded" %>
+
+    <%= link_to "Sign Up", new_user_path,
+          class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" %>
+  </div>
+<% end %>
