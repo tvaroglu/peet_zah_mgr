@@ -1,3 +1,4 @@
+require "logger"
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
@@ -38,7 +39,7 @@ Rails.application.configure do
   # config.logger   = ActiveSupport::TaggedLogging.logger(STDOUT)
   # config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
   config.logger = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
-  config.log_level = :info
+  config.logger.level = Logger::INFO
 
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
