@@ -1,22 +1,24 @@
-<%= form_with(model: topping, class: "contents") do |form| %>
-  <% if topping.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(topping.errors.count, "error") %> prohibited this topping from being saved:</h2>
-
-      <ul class="list-disc ml-6">
-        <% topping.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<%= form_with(model: @topping, local: true) do |f| %>
+  <% if @topping.errors.any? %>
+    <div class="bg-red-100 text-red-600 p-3 rounded mb-4">
+      <ul class="list-disc list-inside">
+        <% @topping.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": topping.errors[:name].none?, "border-red-400 focus:outline-red-600": topping.errors[:name].any?}] %>
+  <div class="mb-4">
+    <%= f.label :name, class: "block font-semibold mb-1" %>
+    <%= f.text_field :name, class: "border rounded w-full p-2" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <div class="flex space-x-3 mt-4">
+    <%= f.submit (@topping.new_record? ? "Create Topping" : "Update Topping"),
+          class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded" %>
+
+    <%= link_to "Back", toppings_path,
+          class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" %>
   </div>
 <% end %>

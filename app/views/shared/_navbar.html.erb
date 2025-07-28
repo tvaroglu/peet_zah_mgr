@@ -1,0 +1,19 @@
+<nav class="bg-gray-800 text-white shadow-md">
+  <div class="max-w-4xl mx-auto flex justify-between items-center px-4 py-3">
+    <div class="flex space-x-3">
+      <%= link_to "Pizzas", pizzas_path,
+          class: "px-4 py-2 rounded font-medium transition-colors duration-200 #{current_page?(pizzas_path) ? 'bg-blue-700 text-white cursor-default' : 'bg-blue-500 text-gray-100 hover:bg-blue-600'}" %>
+
+      <%= link_to "Toppings", toppings_path,
+          class: "px-4 py-2 rounded font-medium transition-colors duration-200 #{current_page?(toppings_path) ? 'bg-blue-700 text-white cursor-default' : 'bg-blue-500 text-gray-100 hover:bg-blue-600'}" %>
+    </div>
+
+    <div>
+      <% if current_page?(pizzas_path) %>
+        <%= link_to "New Pizza", new_pizza_path, class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded font-semibold transition-colors duration-200" %>
+      <% elsif current_page?(toppings_path) %>
+        <%= link_to "New Topping", new_topping_path, class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded font-semibold transition-colors duration-200" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
