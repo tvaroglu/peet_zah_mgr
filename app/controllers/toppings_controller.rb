@@ -1,4 +1,6 @@
 class ToppingsController < ApplicationController
+  before_action :require_login
+  before_action :require_manager, except: [ :index ]
   before_action :set_topping, only: %i[ edit update destroy ]
 
   def index
@@ -49,5 +51,12 @@ class ToppingsController < ApplicationController
 
   def topping_params
     params.require(:topping).permit(:name)
+  end
+
+  def require_manager
+    unless current_user&.manager?
+      flash[:alert] = "Unauthorized - for Managers only. Please log in with appropriate credentials."
+      redirect_to root_path
+    end
   end
 end
