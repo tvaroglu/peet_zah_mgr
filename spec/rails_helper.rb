@@ -65,6 +65,18 @@ RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by :selenium, using: :headless_chrome
   end
+
+  config.before(:each) do
+    seed_pwd = ENV.fetch("DEFAULT_SEED_PASSWORD", "tmpforlocaldev")
+
+    default_user = User.find_or_create_by!(username: "TestManager") do |u|
+      u.password = seed_pwd
+      u.role = User::ROLE_MANAGER
+    end
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
+    allow_any_instance_of(ApplicationController).to receive(:logged_in?).and_return(true)
+  end
 end
 
 Shoulda::Matchers.configure do |config|
