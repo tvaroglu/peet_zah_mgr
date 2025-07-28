@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
-  def new; end
+  def new
+    redirect_to pizzas_path and return if current_user
+  end
 
   def create
     user = User.find_by(username: params[:username])
