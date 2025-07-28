@@ -1,0 +1,42 @@
+<h1 class="text-2xl font-bold mb-4">Create Account 👨‍🍳🍕</h1>
+
+<%= form_with(model: @user, local: true) do |f| %>
+  <% if @user.errors.any? %>
+    <div class="bg-red-100 text-red-600 p-3 rounded mb-4">
+      <ul class="list-disc list-inside">
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <%= f.label :username, class: "block font-semibold mb-1" %>
+    <%= f.text_field :username, class: "border rounded w-full p-2" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :password, class: "block font-semibold mb-1" %>
+    <%= f.password_field :password, class: "border rounded w-full p-2" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :password_confirmation, class: "block font-semibold mb-1" %>
+    <%= f.password_field :password_confirmation, class: "border rounded w-full p-2" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :role, "Employee Type", class: "block font-semibold mb-1" %>
+    <%= f.select :role, [["Chef 🍕", User::ROLE_CHEF], ["Manager 👨‍🍳", User::ROLE_MANAGER]],
+          {}, class: "border rounded w-full p-2" %>
+  </div>
+
+  <div class="flex space-x-3 mt-4">
+    <%= f.submit "Sign Up",
+          class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded" %>
+
+    <%= link_to "Back to Login", login_path,
+          class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" %>
+  </div>
+<% end %>
