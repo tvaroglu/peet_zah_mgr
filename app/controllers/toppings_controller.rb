@@ -11,9 +11,11 @@ class ToppingsController < ApplicationController
 
   def create
     @topping = Topping.new(topping_params)
+
     if @topping.save
       redirect_to toppings_path, notice: "Topping successfully created!"
     else
+      flash.now[:alert] = "Failed to create topping."
       render :new, status: :unprocessable_entity
     end
   end
@@ -24,19 +26,25 @@ class ToppingsController < ApplicationController
     if @topping.update(topping_params)
       redirect_to toppings_path, notice: "Topping successfully updated!"
     else
+      flash.now[:alert] = "Failed to update topping."
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @topping.destroy
-    redirect_to toppings_path, notice: "Topping successfully deleted!"
+    if @topping.destroy
+      redirect_to toppings_path, notice: "Topping successfully deleted!", status: :see_other
+    else
+      redirect_to toppings_path, alert: @topping.errors.full_messages.to_sentence, status: :see_other
+    end
   end
 
   private
 
   def set_topping
     @topping = Topping.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to toppings_path, alert: "Topping not found or already deleted."
   end
 
   def topping_params

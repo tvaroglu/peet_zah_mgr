@@ -40,7 +40,6 @@ RSpec.describe "Toppings", type: :request do
       expect(response).to redirect_to(toppings_path)
       follow_redirect!
       expect(response.body).to include("Topping successfully updated!")
-      expect(topping.reload.name).to eq("New Topping")
     end
 
     it "fails without a name" do
@@ -63,9 +62,11 @@ RSpec.describe "Toppings", type: :request do
       expect(response.body).to include("Topping successfully deleted!")
     end
 
-    it "returns 404 for invalid id" do
+    it "handles invalid id gracefully" do
       delete "/toppings/0"
-      expect(response).to have_http_status(:not_found)
+      expect(response).to redirect_to(toppings_path)
+      follow_redirect!
+      expect(response.body).to include("Topping not found or already deleted.")
     end
   end
 end

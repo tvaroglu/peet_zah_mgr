@@ -1,4 +1,4 @@
-class CreatePizzaToppings < ActiveRecord::Migration[8.0]
+class CreatePizzaToppings < ActiveRecord::Migration[7.0]
   def change
     create_table :pizza_toppings do |t|
       t.references :pizza, null: false, foreign_key: true
@@ -7,6 +7,6 @@ class CreatePizzaToppings < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :pizza_toppings, [:pizza_id, :topping_id], unique: true
+    add_index :pizza_toppings, [ :pizza_id, :topping_id ], unique: true
   end
 end

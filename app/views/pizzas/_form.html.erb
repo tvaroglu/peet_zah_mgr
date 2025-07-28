@@ -1,27 +1,41 @@
-<%= form_with(model: pizza, class: "contents") do |form| %>
-  <% if pizza.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(pizza.errors.count, "error") %> prohibited this pizza from being saved:</h2>
-
-      <ul class="list-disc ml-6">
-        <% pizza.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<%= form_with(model: @pizza, local: true) do |f| %>
+  <% if @pizza.errors.any? %>
+    <div class="bg-red-100 text-red-600 p-3 rounded mb-4">
+      <ul class="list-disc list-inside">
+        <% @pizza.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": pizza.errors[:name].none?, "border-red-400 focus:outline-red-600": pizza.errors[:name].any?}] %>
+  <div class="mb-4">
+    <%= f.label :name, class: "block font-semibold mb-1" %>
+    <%= f.text_field :name, class: "border rounded w-full p-2" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :description %>
-    <%= form.textarea :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": pizza.errors[:description].none?, "border-red-400 focus:outline-red-600": pizza.errors[:description].any?}] %>
+  <div class="mb-4">
+    <%= f.label :description, class: "block font-semibold mb-1" %>
+    <%= f.text_area :description, rows: 3, class: "border rounded w-full p-2" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <div class="mb-4">
+    <%= f.label :toppings, "Select Toppings", class: "block font-semibold mb-1" %>
+    <div class="space-y-1">
+      <%= f.collection_check_boxes :topping_ids, @toppings, :id, :name do |cb| %>
+        <label class="flex items-center space-x-2">
+          <%= cb.check_box %>
+          <span><%= cb.text %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex space-x-3 mt-4">
+    <%= f.submit (@pizza.new_record? ? "Create Pizza" : "Update Pizza"),
+          class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded" %>
+
+    <%= link_to "Back", pizzas_path,
+          class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded" %>
   </div>
 <% end %>
