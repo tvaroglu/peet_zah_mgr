@@ -58,9 +58,46 @@ Key benefits driving the technical design choices included:
 
 ## How to Use:
 
-1. **Access the app:**  
-   Visit the deployed application:  
-   [Production App 🍕👨‍🍳](https://tvaroglu-peet-zah-mgr-prod-e9190eadf2c5.herokuapp.com/)
+1. **Clone the app, install dependencies, and boot local server:**  
+   <!-- Visit the deployed application:  
+   [Production App 🍕👨‍🍳](https://tvaroglu-peet-zah-mgr-prod-e9190eadf2c5.herokuapp.com/) -->
+   ```shell
+   ...
+   ~/peet_zah_mgr $ which ruby
+   /Users/<user>/.rbenv/shims/ruby
+   ~/peet_zah_mgr $ which rails
+   /Users/<user>/.rbenv/shims/rails
+   ~/peet_zah_mgr $ rbenv versions
+   system
+   ...
+   * 3.2.3 (set by ~/peet_zah_mgr/.ruby-version)
+   ~/peet_zah_mgr $ ruby -v
+   ruby 3.2.3 (2024-01-18 revision 52bb2ac0a6) [arm64-darwin23]
+   ~/peet_zah_mgr $ rails -v
+   Rails 7.0.8.7
+   ~/peet_zah_mgr $ bundler -v
+   Bundler version 2.7.1
+   ~/peet_zah_mgr $ gem --version
+   ...
+   3.4.19
+   bundle install
+   ...
+   rails s
+   => Booting Puma
+   => Rails 7.0.8.7 application starting in development 
+   => Run `bin/rails server --help` for more startup options
+   Puma starting in single mode...
+   * Puma version: 6.6.0 ("Return to Forever")
+   * Ruby version: ruby 3.2.3 (2024-01-18 revision 52bb2ac0a6) [arm64-darwin23]
+   *  Min threads: 3
+   *  Max threads: 3
+   *  Environment: development
+   *          PID: 18370
+   * Listening on http://127.0.0.1:3000
+   * Listening on http://[::1]:3000
+   Use Ctrl-C to stop
+   ...
+   ```
    
 2. **Create a Manager account:**
    - Click **Create Account** on the login page.  
